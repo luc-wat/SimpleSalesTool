@@ -306,7 +306,7 @@ const Home = () => {
   const deleteSale = async (id) => {
     try {
       setError(null);
-      await axios.delete(`http://localhost:8080/sales/${id}`);
+      const res = await axios.delete(`http://localhost:8080/sales/${id}`);
 
       if (res.status === 200) {
         setSales(sales.filter((sale) => sale.sale_id !== id));

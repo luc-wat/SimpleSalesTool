@@ -22,7 +22,12 @@ router.post('/register', [
         try {
             const { email, password } = req.body;
             const newUser = await pool.query("INSERT INTO users (email, password) VALUES ($1, crypt($2, gen_salt('md5'))) RETURNING *", [email, password]);
-            res.status(200).json(newUser.rows[0]);
+            
+            if (newUser.rows.length === 0) {
+                res.status(400).send("User could not be created");
+            } else {
+                res.status(200).json(newUser.rows[0]);
+            }
         } catch (err) {
             console.error(err.message);
             res.status(500).send(err.message);
@@ -48,10 +53,12 @@ router.post('/login', [
         try {
             const { email, password } = req.body;
             const user = await pool.query("SELECT * FROM users WHERE email = $1 AND password = crypt($2, password)", [email, password]);
+            
             if (user.rows.length === 0) {
                 return res.status(401).send("Invalid credentials");
+            } else {
+                res.status(200).json(user.rows[0]);
             }
-            res.status(200).json(user.rows[0]);
         } catch (err) {
             console.error(err.message);
             res.status(500).send(err.message);
