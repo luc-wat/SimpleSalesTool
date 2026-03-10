@@ -18,7 +18,8 @@ A full-stack web application for managing sales and customer data, built with Re
 - Completion toggling
 - Cleaner form input (for instance, a customer dropdown)
 - More robust backend authentication with PassportJS
-- Frontend password hashing
+- Password-block '/home'
+- Frontend password hashing and display obscuring
 - Complete, thorough testing
 - Session and cookie handling
 - Searching, sorting, and pagination

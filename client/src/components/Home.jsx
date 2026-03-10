@@ -36,14 +36,29 @@ const AddCustomerModal = ({ isOpen, onClose, onSubmit }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleClear = () => {
+        setFormData({
+            customerName: '',
+            customerEmail: ''
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+
+        try {
+          onSubmit(formData);
+        } catch (err) {
+          throw err;
+        } finally {
+          handleClear();
+        }
+
         onClose();
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={() => {handleClear(); onClose();}}>
             <h2 className="text-lg font-bold">Submit Your Details</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
@@ -87,14 +102,32 @@ const AddSaleModal = ({ isOpen, onClose, onSubmit }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleClear = () => {
+        setFormData({
+            customerName: '',
+            customerEmail: '',
+            createdDate: '',
+            contractStartDate: '',
+            contractEndDate: '',
+            status: ''
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+
+        try {
+          onSubmit(formData);
+        } catch (err) {
+          throw err;
+        } finally {
+          handleClear();
+        }
         onClose();
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={() => {handleClear(); onClose();}}>
             <h2 className="text-lg font-bold">Submit Your Details</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
